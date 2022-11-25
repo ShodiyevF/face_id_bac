@@ -13,12 +13,16 @@ app.use((req, res, next) => {
     next()
 })
 
-app.post('/upload', async (req, res) => {
-    try {
-        console.log(req.files);
-    } catch (error) {
-        console.log(error.message, 'upload');
-    }
-})
+const auth = require('./modules/auth')
+
+app.use(auth)
+
+// app.post('/upload', async (req, res) => {
+//     try {
+//         console.log(req.files);
+//     } catch (error) {
+//         console.log(error.message, 'upload');
+//     }
+// })
 
 app.listen(4000,  console.log(4000))

@@ -11,9 +11,9 @@ const pool = new pg.Pool({
 const uniqRow = async (query, ...arr) => {
     try {
         const client = await pool.connect()
-        const query = await client.query(query, arr)
+        const data = await client.query(query, arr)
         client.release()
-        return query
+        return data
     } catch (error) {
         console.log(error.message, 'uniqRow');
     }
