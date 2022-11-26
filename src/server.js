@@ -4,6 +4,7 @@ const fileupload = require('express-fileupload')
 const app = express()
 
 app.use(fileupload())
+app.use(express.json())
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader("Access-Control-Allow-Credentials", "true")
