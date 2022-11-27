@@ -10,13 +10,14 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Credentials", "true")
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT')
     res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, token");
-
     next()
 })
 
 const auth = require('./modules/auth')
+const workers = require('./modules/workers')
 
 app.use(auth)
+app.use(workers)
 
 // app.post('/upload', async (req, res) => {
 //     try {

@@ -29,14 +29,19 @@ const registerModel = async ({ name, login, password, creator },token) => {
                 await uniqRow(`insert into users (user_name, user_login, user_password, creator) values ($1,$2,$3,$4)`, name, login, password, creator)
                 return 200
             } else if(check.rows.length){
-                const chechCreator = await uniqRow('select * from creator where creater_id = $1', token)
-                if(!(chechCreator.rows.length)){
-                    await uniqRow(`insert into users (user_name, user_login, user_password) values ($1,$2,$3)`, name, login, password)
-                    const lastAdmin = await uniqRow(`select * from users where user_login = $1`, login)
-                    await uniqRow(`insert into creator (creater_id, created_id) values ($1,$2)`, token, lastAdmin.rows[0].user_id)
-                    return 200
+                const branchOwner = await uniqRow()
+                if (condition) {
+                    const chechCreator = await uniqRow('select * from creator where creater_id = $1', token)
+                    if(!(chechCreator.rows.length)){
+                        await uniqRow(`insert into users (user_name, user_login, user_password) values ($1,$2,$3)`, name, login, password)
+                        const lastAdmin = await uniqRow(`select * from users where user_login = $1`, login)
+                        await uniqRow(`insert into creator (creater_id, created_id) values ($1,$2)`, token, lastAdmin.rows[0].user_id)
+                        return 200
+                    } else {
+                        return 405
+                    }
                 } else {
-                    return 405
+                    
                 }
             } else {
                 return 400
